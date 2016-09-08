@@ -1,6 +1,5 @@
 FROM maven:3.3-jdk-8
 MAINTAINER Nathan Walker <nathan@rylath.net>
-
 ENV TRANSITIMECORE /transitime-core
 ENV PGPASSWORD=transitime
 ENV AGENCYNAME=CAPMETRO

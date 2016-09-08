@@ -13,6 +13,7 @@
     <core>
     	<predictionGeneratorClass>org.transitime.core.predictiongenerator.kalman.KalmanPredictionGeneratorImpl</predictionGeneratorClass>
     	<maxDistanceFromSegment>30000</maxDistanceFromSegment>	
+    	<storeTravelTimeStopPathPredictions>true</storeTravelTimeStopPathPredictions>
     </core>	
     <avl>
         <!-- URL for GTFS realtime vechicle location stream. Changed name in versions do use both for the moment. -->
