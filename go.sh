@@ -1,14 +1,14 @@
 export PGPASSWORD=transitime
-export AGENCYNAME=GOHART
+export AGENCYNAME=WEXFORD
 export AGENCYID=1
-export GTFS_URL="http://gohart.org/google/google_transit.zip"
-export GTFSRTVEHICLEPOSITIONS="http://realtime.prod.obahart.org:8088/vehicle-positions"
+export GTFS_URL="http://www.transportforireland.ie/transitData/google_transit_wexfordbus.zip"
+export GTFSRTVEHICLEPOSITIONS="http://nosetasusemodule:8088/vehicle-positions"
 
 docker stop $(docker ps -a -q)
 
 docker rm $(docker ps -a -q)
 
-docker build -t transitime-server .
+docker build --no-cache -t transitime-server .
 
 docker run --name transitime-db -e POSTGRES_PASSWORD=$PGPASSWORD -d postgres
 
