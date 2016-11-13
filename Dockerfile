@@ -56,14 +56,13 @@ RUN chmod +x ./jq
 
 RUN cp jq /usr/bin/
 
-RUN git clone https://github.com/scrudden/core.git /transitime-core
-
 #RUN git clone https://github.com/Transitime/core.git /transitime-core
 
+RUN git clone https://github.com/scrudden/core.git /transitime-core
 WORKDIR /transitime-core
+RUN git checkout historical_predictions
 
 #RUN git checkout kalman_predictions
-RUN git checkout historical_predictions
 
 #RUN git checkout shade_build_upstream
 
