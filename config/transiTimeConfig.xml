@@ -20,6 +20,7 @@
     	<headwayGeneratorClass>org.transitime.core.headwaygenerator.LastArrivalsHeadwayGenerator</headwayGeneratorClass>
     	<maxDistanceFromSegment>100</maxDistanceFromSegment>	
     	<storeTravelTimeStopPathPredictions>true</storeTravelTimeStopPathPredictions>
+    	<storeDwellTimeStopPathPredictions>true</storeDwellTimeStopPathPredictions>    	
     	<!-- This setting allow more than one vehicle assigned to the same block. This should be set to true for scheduled services and false for frequency based services. -->
     	<exclusiveBlockAssignments>false</exclusiveBlockAssignments>
     	<maxPredictionsTimeSecs>4800</maxPredictionsTimeSecs>
@@ -27,6 +28,9 @@
     	<afterStopDistance>25</afterStopDistance>
     	<layoverDistance>25</layoverDistance>
     	<allowableNumberOfBadMatches>5</allowableNumberOfBadMatches>
+    	<frequency>
+    		<cacheIncrementsForFrequencyService>10800</cacheIncrementsForFrequencyService>
+    	</frequency>
     </core>	
 	<predAccuracy><maxPredTimeMinutes>30</maxPredTimeMinutes></predAccuracy>
     <avl>                                                     
