@@ -8,7 +8,7 @@ docker stop $(docker ps -a -q)
 
 docker rm $(docker ps -a -q)
 
-docker build --no-cache -t transitime-server .
+docker build  --no-cache -t transitime-server .
 
 docker run --name transitime-db -e POSTGRES_PASSWORD=$PGPASSWORD -p 5432:5432 -d postgres
 
