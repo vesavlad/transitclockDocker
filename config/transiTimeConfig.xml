@@ -18,7 +18,7 @@
         <!--<predictionGeneratorClass>org.transitime.core.predictiongenerator.kalman.KalmanPredictionGeneratorImpl</predictionGeneratorClass>-->
         <predictionGeneratorClass>org.transitime.core.predictiongenerator.average.frequency.HistoricalAveragePredictionGeneratorImpl</predictionGeneratorClass>
         <headwayGeneratorClass>org.transitime.core.headwaygenerator.LastArrivalsHeadwayGenerator</headwayGeneratorClass>
-        <maxDistanceFromSegment>10</maxDistanceFromSegment>
+        <maxDistanceFromSegment>100</maxDistanceFromSegment>
         <storeTravelTimeStopPathPredictions>true</storeTravelTimeStopPathPredictions>
         <storeDwellTimeStopPathPredictions>true</storeDwellTimeStopPathPredictions>
         <!-- This setting allow more than one vehicle assigned to the same block. This should be set to true for scheduled services and false for fre
