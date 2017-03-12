@@ -1,7 +1,7 @@
 export PGPASSWORD=transitime
 export AGENCYNAME=atlanta-sc
 export AGENCYID=ASC
-export GTFS_URL="https://dl.dropboxusercontent.com/u/107527881/final.zip"
+export GTFS_URL="https://dl.dropboxusercontent.com/u/107527881/final_dt2.zip"
 export GTFSRTVEHICLEPOSITIONS=""
 
 docker stop $(docker ps -a -q)
