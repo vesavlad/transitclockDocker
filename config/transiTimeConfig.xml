@@ -63,6 +63,7 @@
 		<daysPopulateHistoricalCache>50</daysPopulateHistoricalCache>
 	</cache>
 
+	<db>
 		<dbName>AGENCYNAME</dbName>
 		<dbHost>POSTGRES_PORT_5432_TCP_ADDR:POSTGRES_PORT_5432_TCP_PORT
 		</dbHost>
