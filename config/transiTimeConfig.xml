@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transitime>
 	<modules>
-<!-- 		<optionalModulesList>org.transitime.avl.NextBusAvlModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList> -->
-		<optionalModulesList>org.transitime.avl.PlaybackModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
+		<!-- <optionalModulesList>org.transitime.core.schedBasedPreds.SchedBasedPredsModule;org.transitime.avl.GtfsRealtimeModule</optionalModulesList> -->
+		<!-- <optionalModulesList>org.transitime.avl.NextBusAvlModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList> -->
+		<optionalModulesList>org.transitime.avl.PlaybackModule
+		</optionalModulesList>
+		<!-- <optionalModulesList>org.transitime.avl.NextBusAvlModule</optionalModulesList> -->
 	</modules>
 	<holding>
 		<controlStops>4560595:6</controlStops>
@@ -16,8 +19,10 @@
 	</autoBlockAssigner>
 	<core>
 		<!--<predictionGeneratorClass>org.transitime.core.predictiongenerator.kalman.KalmanPredictionGeneratorImpl</predictionGeneratorClass> -->
-		<predictionGeneratorClass>org.transitime.core.predictiongenerator.average.frequency.HistoricalAveragePredictionGeneratorImpl</predictionGeneratorClass>
-		<headwayGeneratorClass>org.transitime.core.headwaygenerator.LastArrivalsHeadwayGenerator</headwayGeneratorClass>
+		<predictionGeneratorClass>org.transitime.core.predictiongenerator.average.frequency.HistoricalAveragePredictionGeneratorImpl
+		</predictionGeneratorClass>
+		<headwayGeneratorClass>org.transitime.core.headwaygenerator.LastArrivalsHeadwayGenerator
+		</headwayGeneratorClass>
 		<maxDistanceFromSegment>40</maxDistanceFromSegment>
 		<storeTravelTimeStopPathPredictions>true
 		</storeTravelTimeStopPathPredictions>
@@ -39,7 +44,6 @@
 			</cacheIncrementsForFrequencyService>
 		</frequency>
 		<pauseIfDbQueueFilling>true</pauseIfDbQueueFilling>
-		<maxHeadingOffsetFromSegment>360</maxHeadingOffsetFromSegment>
 	</core>
 
 	<predAccuracy>
@@ -49,16 +53,16 @@
 		<feedPollingRateSecs>10</feedPollingRateSecs>
 		<nextbus>
 			<agencyNameForFeed>atlanta-sc</agencyNameForFeed>
-		</nextbus>		
+		</nextbus>
 		<playbackStartTime>03-09-2017 10:30:00</playbackStartTime>
 		<playbackEndTime>03-09-2017 14:05:00</playbackEndTime>
-		<playbackRealtime>true</playbackRealtime>
 		<maxSpeed>15</maxSpeed>
+
 	</avl>
 	<cache>
 		<daysPopulateHistoricalCache>50</daysPopulateHistoricalCache>
 	</cache>
-	<db>
+
 		<dbName>AGENCYNAME</dbName>
 		<dbHost>POSTGRES_PORT_5432_TCP_ADDR:POSTGRES_PORT_5432_TCP_PORT
 		</dbHost>
