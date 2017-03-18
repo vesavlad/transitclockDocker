@@ -1,14 +1,14 @@
 export PGPASSWORD=transitime
 export AGENCYNAME=atlanta-sc
 export AGENCYID=ASC
-export GTFS_URL="https://dl.dropboxusercontent.com/u/107527881/final_dt2.zip"
+export GTFS_URL="https://drive.google.com/uc?export=download&id=0BzTMCDngWQJ4T2xjMkp3RENhQTQ"
 export GTFSRTVEHICLEPOSITIONS=""
 
 docker stop $(docker ps -a -q)
 
 docker rm $(docker ps -a -q)
 
-docker build  --no-cache -t transitime-server .
+docker build --no-cache -t transitime-server .
 
 docker run --name transitime-db -e POSTGRES_PASSWORD=$PGPASSWORD -p 5432:5432 -d postgres
 

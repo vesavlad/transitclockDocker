@@ -99,7 +99,7 @@ ADD bin/create_webagency.sh create_webagency.sh
 ADD bin/import_gtfs.sh import_gtfs.sh
 ADD bin/start_transitime.sh start_transitime.sh
 ADD bin/get_api_key.sh	get_api_key.sh
-
+ADD final_trial_2.zip
 
 # Handy utility to allow you connect directly to database
 ADD bin/connect_to_db.sh connect_to_db.sh
