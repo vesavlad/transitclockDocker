@@ -1,8 +1,8 @@
 export PGPASSWORD=transitime
 export AGENCYNAME=atlanta-sc
 export AGENCYID=ASC
-export GTFS_URL="https://drive.google.com/uc?export=download&id=0BzTMCDngWQJ4T2xjMkp3RENhQTQ"
-export GTFSRTVEHICLEPOSITIONS=""
+export GTFS_URL="TAKINGVALUEFROMDOCKERFILE"
+export GTFSRTVEHICLEPOSITIONS="http://gtfs.viainfo.net/vehicle/vehiclepositions.pb"
 
 docker stop $(docker ps -a -q)
 
