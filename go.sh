@@ -1,6 +1,6 @@
 export PGPASSWORD=transitime
-export AGENCYNAME=atlanta-sc
-export AGENCYID=ASC
+export AGENCYNAME=via
+export AGENCYID=1
 export GTFS_URL="TAKINGVALUEFROMDOCKERFILE"
 export GTFSRTVEHICLEPOSITIONS="http://gtfs.viainfo.net/vehicle/vehiclepositions.pb"
 

@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transitime>
     <modules>
-        	<optionalModulesList>org.transitime.core.schedBasedPreds.SchedBasedPredsModule;org.transitime.avl.GtfsRealtimeModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>                            
-			<!-- <optionalModulesList>org.transitime.avl.NextBusAvlModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList> -->
+        	<!-- <optionalModulesList>org.transitime.core.schedBasedPreds.SchedBasedPredsModule;org.transitime.avl.GtfsRealtimeModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>  -->                            
+			<optionalModulesList>org.transitime.avl.via.ViaRoute100Trial_GTFSRealtimeModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
     </modules>
     <holding>
-     	<controlStops>4560595:6</controlStops>
-    </holding>     
-    
+     	<controlStops>83819:2</controlStops>
+    </holding>         
     <autoBlockAssigner>    
 		<autoAssignerEnabled>true</autoAssignerEnabled>
-		<ignoreAvlAssignments>false</ignoreAvlAssignments>
+		<ignoreAvlAssignments>true</ignoreAvlAssignments>
 		<allowableEarlySeconds>600</allowableEarlySeconds> 
 		<allowableLateSeconds>600</allowableLateSeconds>
     </autoBlockAssigner>
-     <core>
+    <core>
         <!--<predictionGeneratorClass>org.transitime.core.predictiongenerator.kalman.KalmanPredictionGeneratorImpl</predictionGeneratorClass>-->
-        <predictionGeneratorClass>org.transitime.core.PredictionGeneratorDefaultImpl</predictionGeneratorClass>
+        <predictionGeneratorClass>org.transitime.core.predictiongenerator.average.frequency.HistoricalAveragePredictionGeneratorImpl</predictionGeneratorClass>
+        <headwayGeneratorClass>org.transitime.core.headwaygenerator.LastArrivalsHeadwayGenerator</headwayGeneratorClass>
         <maxDistanceFromSegment>40</maxDistanceFromSegment>
+        <storeTravelTimeStopPathPredictions>true</storeTravelTimeStopPathPredictions>
+        <storeDwellTimeStopPathPredictions>true</storeDwellTimeStopPathPredictions>
         <!-- This setting allow more than one vehicle assigned to the same block. This should be set to true for scheduled services and false for fre
 quency based services. -->
+        <exclusiveBlockAssignments>false</exclusiveBlockAssignments>
         <maxPredictionsTimeSecs>4800</maxPredictionsTimeSecs>
         <beforeStopDistance>100</beforeStopDistance>
-        <afterStopDistance>50</afterStopDistance>
+        <afterStopDistance>100</afterStopDistance>
         <layoverDistance>25</layoverDistance>
         <allowableNumberOfBadMatches>15</allowableNumberOfBadMatches>
         <timeForDeterminingNoProgress>0</timeForDeterminingNoProgress>
         <timeForDeterminingDelayedSecs>0</timeForDeterminingDelayedSecs>
+        <frequency>
+                <cacheIncrementsForFrequencyService>10800</cacheIncrementsForFrequencyService>
+        </frequency>
         <pauseIfDbQueueFilling>true</pauseIfDbQueueFilling>
-        <maxHeadingOffsetFromSegment>180</maxHeadingOffsetFromSegment>
+        <maxHeadingOffsetFromSegment>200</maxHeadingOffsetFromSegment>
+        <!--<cacheReloadStartTimeStr>02-01-2017 10:45:00</cacheReloadStartTimeStr>
+        <cacheReloadEndTimeStr>02-01-2017 14:15:00</cacheReloadEndTimeStr>-->
     </core>
+
 	<predAccuracy><maxPredTimeMinutes>30</maxPredTimeMinutes></predAccuracy>
    <avl>
    	<gtfsRealtimeFeedURI>GTFSRTVEHICLEPOSITIONS</gtfsRealtimeFeedURI> 		  
 	<url>GTFSRTVEHICLEPOSITIONS</url>	
-        <feedPollingRateSecs>30</feedPollingRateSecs>
+        <feedPollingRateSecs>15</feedPollingRateSecs>
     </avl>
     <cache>
         <daysPopulateHistoricalCache>0</daysPopulateHistoricalCache>
