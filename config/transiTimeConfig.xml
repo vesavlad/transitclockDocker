@@ -5,7 +5,7 @@
 			<optionalModulesList>org.transitime.avl.via.ViaRoute100Trial_GTFSRealtimeModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
     </modules>
     <holding>
-     	<controlStops>83819:2</controlStops>
+     	<controlStops>83819:2;20097:18</controlStops>
     </holding>         
     <autoBlockAssigner>    
 		<autoAssignerEnabled>true</autoAssignerEnabled>
