@@ -1,8 +1,8 @@
 export PGPASSWORD=transitime
-export AGENCYNAME=via
-export AGENCYID=1
+export AGENCYNAME=GATECH
+export AGENCYID=GATECH
 export GTFS_URL="TAKINGVALUEFROMDOCKERFILE"
-export GTFSRTVEHICLEPOSITIONS="http://gtfs.viainfo.net/vehicle/vehiclepositions.pb"
+export GTFSRTVEHICLEPOSITIONS="THISISSETINTRANSITIMECONFIGXML"
 
 docker stop $(docker ps -a -q)
 

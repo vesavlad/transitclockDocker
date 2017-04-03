@@ -34,7 +34,7 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys \
 	F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
 
 ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.0.42
+ENV TOMCAT_VERSION 8.0.43
 ENV TOMCAT_TGZ_URL https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 RUN set -x \
@@ -102,7 +102,7 @@ ADD bin/get_api_key.sh	get_api_key.sh
 
 # ADD GTFS file as not using URL.
 # ADD final_trial_2.zip final_trial_2.zip
-ADD google_transit_via_100_freq.zip final_trial_2.zip
+ADD gtfs_GT.zip final_trial_2.zip
 
 # Handy utility to allow you connect directly to database
 ADD bin/connect_to_db.sh connect_to_db.sh

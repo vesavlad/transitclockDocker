@@ -2,10 +2,10 @@
 <transitime>
     <modules>
         	<!-- <optionalModulesList>org.transitime.core.schedBasedPreds.SchedBasedPredsModule;org.transitime.avl.GtfsRealtimeModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>  -->                            
-			<optionalModulesList>org.transitime.avl.via.ViaRoute100Trial_GTFSRealtimeModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
+			<optionalModulesList>org.transitime.custom.gtt.GTTAvlModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
     </modules>
-    <holding>
-     	<controlStops>83819:2;20097:18</controlStops>
+     <holding>
+     	<controlStops>1079782:0</controlStops>
     </holding>         
     <autoBlockAssigner>    
 		<autoAssignerEnabled>true</autoAssignerEnabled>
@@ -22,10 +22,10 @@
         <storeDwellTimeStopPathPredictions>true</storeDwellTimeStopPathPredictions>
         <!-- This setting allow more than one vehicle assigned to the same block. This should be set to true for scheduled services and false for fre
 quency based services. -->
-        <exclusiveBlockAssignments>false</exclusiveBlockAssignments>
+        <exclusiveBlockAssignments>true</exclusiveBlockAssignments>
         <maxPredictionsTimeSecs>4800</maxPredictionsTimeSecs>
-        <beforeStopDistance>100</beforeStopDistance>
-        <afterStopDistance>100</afterStopDistance>
+        <beforeStopDistance>25</beforeStopDistance>
+        <afterStopDistance>25</afterStopDistance>
         <layoverDistance>25</layoverDistance>
         <allowableNumberOfBadMatches>15</allowableNumberOfBadMatches>
         <timeForDeterminingNoProgress>0</timeForDeterminingNoProgress>
@@ -44,6 +44,9 @@ quency based services. -->
    	<gtfsRealtimeFeedURI>GTFSRTVEHICLEPOSITIONS</gtfsRealtimeFeedURI> 		  
 	<url>GTFSRTVEHICLEPOSITIONS</url>	
         <feedPollingRateSecs>15</feedPollingRateSecs>
+    <georgiaTechFeedDomainName>gump.gatech.edu</georgiaTechFeedDomainName>
+    <georgiaTechFeedPort>757</georgiaTechFeedPort>
+    
     </avl>
     <cache>
         <daysPopulateHistoricalCache>0</daysPopulateHistoricalCache>
