@@ -5,7 +5,8 @@
 			<optionalModulesList>org.transitime.avl.via.ViaRoute100Trial_GTFSRealtimeModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
     </modules>
     <holding>
-     	<controlStops>83819:2;20097:18</controlStops>
+     	<controlStops>83819:2;20097:18;10503:12</controlStops>
+     	<maxPredictionsForHoldingTimeCalculation>5</maxPredictionsForHoldingTimeCalculation>
     </holding>         
     <autoBlockAssigner>    
 		<autoAssignerEnabled>true</autoAssignerEnabled>
@@ -37,6 +38,7 @@ quency based services. -->
         <maxHeadingOffsetFromSegment>200</maxHeadingOffsetFromSegment>
         <!--<cacheReloadStartTimeStr>02-01-2017 10:45:00</cacheReloadStartTimeStr>
         <cacheReloadEndTimeStr>02-01-2017 14:15:00</cacheReloadEndTimeStr>-->
+        <generateHoldingTimeWhenPredictionWithin>90000</generateHoldingTimeWhenPredictionWithin>
     </core>
 
 	<predAccuracy><maxPredTimeMinutes>30</maxPredTimeMinutes></predAccuracy>

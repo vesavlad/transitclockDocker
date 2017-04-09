@@ -34,7 +34,7 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys \
 	F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
 
 ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.0.42
+ENV TOMCAT_VERSION 8.0.43
 ENV TOMCAT_TGZ_URL https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 RUN set -x \
@@ -63,9 +63,9 @@ WORKDIR /transitime-core
 
 #RUN git checkout kalman_predictions
 #RUN git checkout historical_predictions
-RUN git checkout frequency_based_services
+#RUN git checkout frequency_based_services
 #RUN git checkout shade_build_upstream
-
+RUN git checkout VIA
 RUN mvn install -DskipTests
 
 WORKDIR /
