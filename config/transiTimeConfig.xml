@@ -5,7 +5,7 @@
 			<optionalModulesList>org.transitime.custom.gtt.GTTAvlModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
     </modules>
      <holding>
-     	<controlStops>1079782:0</controlStops>
+     	<controlStops>1079782:11</controlStops>
     </holding>         
     <autoBlockAssigner>    
 		<autoAssignerEnabled>true</autoAssignerEnabled>
@@ -22,7 +22,7 @@
         <storeDwellTimeStopPathPredictions>true</storeDwellTimeStopPathPredictions>
         <!-- This setting allow more than one vehicle assigned to the same block. This should be set to true for scheduled services and false for fre
 quency based services. -->
-        <exclusiveBlockAssignments>true</exclusiveBlockAssignments>
+        <exclusiveBlockAssignments>false</exclusiveBlockAssignments>
         <maxPredictionsTimeSecs>4800</maxPredictionsTimeSecs>
         <beforeStopDistance>25</beforeStopDistance>
         <afterStopDistance>25</afterStopDistance>
@@ -31,7 +31,7 @@ quency based services. -->
         <timeForDeterminingNoProgress>0</timeForDeterminingNoProgress>
         <timeForDeterminingDelayedSecs>0</timeForDeterminingDelayedSecs>
         <frequency>
-                <cacheIncrementsForFrequencyService>10800</cacheIncrementsForFrequencyService>
+                <cacheIncrementsForFrequencyService>3600</cacheIncrementsForFrequencyService>
         </frequency>
         <pauseIfDbQueueFilling>true</pauseIfDbQueueFilling>
         <maxHeadingOffsetFromSegment>200</maxHeadingOffsetFromSegment>
