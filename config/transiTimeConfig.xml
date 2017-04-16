@@ -6,6 +6,7 @@
     </modules>
      <holding>
      	<controlStops>1079782:11</controlStops>
+     	<plannedHeadwayMsec>360000</plannedHeadwayMsec>
     </holding>         
     <autoBlockAssigner>    
 		<autoAssignerEnabled>true</autoAssignerEnabled>
