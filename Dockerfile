@@ -100,9 +100,12 @@ ADD bin/import_gtfs.sh import_gtfs.sh
 ADD bin/start_transitime.sh start_transitime.sh
 ADD bin/get_api_key.sh	get_api_key.sh
 
+
 # ADD GTFS file as not using URL.
 # ADD final_trial_2.zip final_trial_2.zip
 ADD gtfs_GT.zip final_trial_2.zip
+
+ADD data /data
 
 # Handy utility to allow you connect directly to database
 ADD bin/connect_to_db.sh connect_to_db.sh
