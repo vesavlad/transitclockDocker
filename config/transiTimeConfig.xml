@@ -9,7 +9,7 @@
     </holding>         
     <autoBlockAssigner>    
 		<autoAssignerEnabled>true</autoAssignerEnabled>
-		<ignoreAvlAssignments>true</ignoreAvlAssignments>
+		<ignoreAvlAssignments>false</ignoreAvlAssignments>
 		<allowableEarlySeconds>600</allowableEarlySeconds> 
 		<allowableLateSeconds>600</allowableLateSeconds>
     </autoBlockAssigner>

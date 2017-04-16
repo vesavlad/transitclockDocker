@@ -63,7 +63,8 @@ WORKDIR /transitime-core
 
 #RUN git checkout kalman_predictions
 #RUN git checkout historical_predictions
-RUN git checkout frequency_based_services
+#RUN git checkout frequency_based_services
+RUN git checkout via
 #RUN git checkout shade_build_upstream
 
 RUN mvn install -DskipTests
