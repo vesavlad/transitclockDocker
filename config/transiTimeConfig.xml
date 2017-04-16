@@ -2,7 +2,7 @@
 <transitime>
     <modules>
         	<!-- <optionalModulesList>org.transitime.core.schedBasedPreds.SchedBasedPredsModule;org.transitime.avl.GtfsRealtimeModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>  -->                            
-			<optionalModulesList>org.transitime.custom.gtt.GTTAvlModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
+			<optionalModulesList>org.transitime.custom.gtt.GTTCsvAvlModule</optionalModulesList>
     </modules>
      <holding>
      	<controlStops>1079782:11</controlStops>
