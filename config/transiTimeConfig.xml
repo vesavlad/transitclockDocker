@@ -5,7 +5,7 @@
 			<optionalModulesList>org.transitime.custom.gtt.GTTCsvAvlModule</optionalModulesList>
     </modules>
      <holding>
-     	<controlStops>1079782:11</controlStops>
+     	<controlStops>1126650:11</controlStops>
      	<plannedHeadwayMsec>360000</plannedHeadwayMsec>
     </holding>         
     <autoBlockAssigner>    
@@ -24,7 +24,7 @@
         <!-- This setting allow more than one vehicle assigned to the same block. This should be set to true for scheduled services and false for fre
 quency based services. -->
         <exclusiveBlockAssignments>false</exclusiveBlockAssignments>
-        <maxPredictionsTimeSecs>1500</maxPredictionsTimeSecs>
+        <maxPredictionsTimeSecs>1320</maxPredictionsTimeSecs>
         <beforeStopDistance>25</beforeStopDistance>
         <afterStopDistance>25</afterStopDistance>
         <layoverDistance>25</layoverDistance>
@@ -32,7 +32,7 @@ quency based services. -->
         <timeForDeterminingNoProgress>0</timeForDeterminingNoProgress>
         <timeForDeterminingDelayedSecs>0</timeForDeterminingDelayedSecs>
         <frequency>
-                <cacheIncrementsForFrequencyService>3600</cacheIncrementsForFrequencyService>
+                <cacheIncrementsForFrequencyService>86400</cacheIncrementsForFrequencyService>
         </frequency>
         <pauseIfDbQueueFilling>true</pauseIfDbQueueFilling>
         <maxHeadingOffsetFromSegment>200</maxHeadingOffsetFromSegment>
@@ -40,7 +40,7 @@ quency based services. -->
         <cacheReloadEndTimeStr>02-01-2017 14:15:00</cacheReloadEndTimeStr>-->
     </core>
 
-	<predAccuracy><maxPredTimeMinutes>30</maxPredTimeMinutes></predAccuracy>
+	<predAccuracy><maxPredTimeMinutes>22</maxPredTimeMinutes></predAccuracy>
    <avl>
    	<gtfsRealtimeFeedURI>GTFSRTVEHICLEPOSITIONS</gtfsRealtimeFeedURI> 		  
 	<url>GTFSRTVEHICLEPOSITIONS</url>	
@@ -50,7 +50,7 @@ quency based services. -->
     
     </avl>
     <cache>
-        <daysPopulateHistoricalCache>0</daysPopulateHistoricalCache>
+        <daysPopulateHistoricalCache>70</daysPopulateHistoricalCache>
     </cache>
 	<db>
 		<dbName>AGENCYNAME</dbName>
