@@ -6,7 +6,7 @@ ransitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>  -->
     	<optionalModulesList>org.transitime.avl.via.ViaRoute100Trial_GTFSRealtimeModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
     </modules>
     <holding>
-        <controlStops>83819:2;20097:18;10503:12</controlStops>
+        <controlStops>93296:66;20097:99</controlStops>
         <maxPredictionsForHoldingTimeCalculation>5</maxPredictionsForHoldingTimeCalculation>
     </holding>
     <autoBlockAssigner>
