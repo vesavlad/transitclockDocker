@@ -36,13 +36,13 @@ quency based services. -->
         <timeForDeterminingNoProgress>0</timeForDeterminingNoProgress>
         <timeForDeterminingDelayedSecs>0</timeForDeterminingDelayedSecs>
         <frequency>
-                <cacheIncrementsForFrequencyService>10800</cacheIncrementsForFrequencyService>
+                <cacheIncrementsForFrequencyService>60000</cacheIncrementsForFrequencyService>
         </frequency>
         <pauseIfDbQueueFilling>true</pauseIfDbQueueFilling>
         <maxHeadingOffsetFromSegment>120</maxHeadingOffsetFromSegment>
         <!--<cacheReloadStartTimeStr>02-01-2017 10:45:00</cacheReloadStartTimeStr>
         <cacheReloadEndTimeStr>02-01-2017 14:15:00</cacheReloadEndTimeStr>-->
-        <generateHoldingTimeWhenPredictionWithin>90000</generateHoldingTimeWhenPredictionWithin>
+        <generateHoldingTimeWhenPredictionWithin>45000</generateHoldingTimeWhenPredictionWithin>
     </core>
 
     <predAccuracy><maxPredTimeMinutes>30</maxPredTimeMinutes></predAccuracy>
