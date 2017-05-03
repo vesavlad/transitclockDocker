@@ -49,7 +49,7 @@ quency based services. -->
    <avl>
    	<gtfsRealtimeFeedURI>GTFSRTVEHICLEPOSITIONS</gtfsRealtimeFeedURI> 		  
 	<url>GTFSRTVEHICLEPOSITIONS</url>	
-        <feedPollingRateSecs>15</feedPollingRateSecs>
+        <feedPollingRateSecs>10</feedPollingRateSecs>
     </avl>
     <cache>
         <daysPopulateHistoricalCache>0</daysPopulateHistoricalCache>
