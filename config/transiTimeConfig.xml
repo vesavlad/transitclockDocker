@@ -1,59 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transitime>
-    <modules>
-                <!-- <optionalModulesList>org.transitime.core.schedBasedPreds.SchedBasedPredsModule;org.transitime.avl.GtfsRealtimeModule;org.t
-ransitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>  -->
-    	<optionalModulesList>org.transitime.avl.via.ViaRoute100Trial_GTFSRealtimeModule;org.transitime.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
-    </modules>
-    <holding>
-        <controlStops>93296:66;20097:99</controlStops>
-        <maxPredictionsForHoldingTimeCalculation>5</maxPredictionsForHoldingTimeCalculation>
-    </holding>
-    <autoBlockAssigner>
-                <autoAssignerEnabled>true</autoAssignerEnabled>
-                <ignoreAvlAssignments>true</ignoreAvlAssignments>
-                <allowableEarlySeconds>600</allowableEarlySeconds>
-                <allowableLateSeconds>600</allowableLateSeconds>
-    </autoBlockAssigner>
+	<modules>
+		<optionalModulesList>org.transitime.core.schedBasedPreds.SchedBasedPredsModule;org.transitime.avl.KombusAvlModule</optionalModulesList>
+	</modules>
 
-   
-       <core>
-        <!--<predictionGeneratorClass>org.transitime.core.predictiongenerator.kalman.KalmanPredictionGeneratorImpl</predictionGeneratorClass>-->
-        <predictionGeneratorClass>org.transitime.core.predictiongenerator.average.frequency.HistoricalAveragePredictionGeneratorImpl</predictionGeneratorClass>
-        <headwayGeneratorClass>org.transitime.core.headwaygenerator.LastArrivalsHeadwayGenerator</headwayGeneratorClass>
-        <maxDistanceFromSegment>300</maxDistanceFromSegment>
-        <storeTravelTimeStopPathPredictions>true</storeTravelTimeStopPathPredictions>
-        <storeDwellTimeStopPathPredictions>true</storeDwellTimeStopPathPredictions>
-        <!-- This setting allow more than one vehicle assigned to the same block. This should be set to true for scheduled services and false f
-or fre
-quency based services. -->
-        <exclusiveBlockAssignments>false</exclusiveBlockAssignments>
-        <maxPredictionsTimeSecs>4800</maxPredictionsTimeSecs>
-        <beforeStopDistance>100</beforeStopDistance>
-        <afterStopDistance>100</afterStopDistance>
-        <layoverDistance>25</layoverDistance>
-        <allowableNumberOfBadMatches>15</allowableNumberOfBadMatches>
-        <timeForDeterminingNoProgress>0</timeForDeterminingNoProgress>
-        <timeForDeterminingDelayedSecs>0</timeForDeterminingDelayedSecs>
-        <frequency>
-                <cacheIncrementsForFrequencyService>60000</cacheIncrementsForFrequencyService>
-        </frequency>
-        <pauseIfDbQueueFilling>true</pauseIfDbQueueFilling>
-        <maxHeadingOffsetFromSegment>120</maxHeadingOffsetFromSegment>
-        <!--<cacheReloadStartTimeStr>02-01-2017 10:45:00</cacheReloadStartTimeStr>
-        <cacheReloadEndTimeStr>02-01-2017 14:15:00</cacheReloadEndTimeStr>-->
-        <generateHoldingTimeWhenPredictionWithin>45000</generateHoldingTimeWhenPredictionWithin>
-    </core>
+	<autoBlockAssigner>
+		<autoAssignerEnabled>true</autoAssignerEnabled>
+		<ignoreAvlAssignments>true</ignoreAvlAssignments>
+		<allowableEarlySeconds>600</allowableEarlySeconds>
+		<allowableLateSeconds>600</allowableLateSeconds>
+	</autoBlockAssigner>
 
-    <predAccuracy><maxPredTimeMinutes>30</maxPredTimeMinutes></predAccuracy>
-   <avl>
-   	<gtfsRealtimeFeedURI>GTFSRTVEHICLEPOSITIONS</gtfsRealtimeFeedURI> 		  
-	<url>GTFSRTVEHICLEPOSITIONS</url>	
-        <feedPollingRateSecs>10</feedPollingRateSecs>
-    </avl>
-    <cache>
-        <daysPopulateHistoricalCache>0</daysPopulateHistoricalCache>
-    </cache>
+	<core>
+		<predictionGeneratorClass>org.transitime.core.PredictionGeneratorDefaultImpl
+		</predictionGeneratorClass>
+		<beforeStopDistance>100</beforeStopDistance>
+		<afterStopDistance>100</afterStopDistance>
+	</core>
+
+	<predAccuracy>
+		<maxPredTimeMinutes>30</maxPredTimeMinutes>
+	</predAccuracy>
+	<avl>
+		<gtfsRealtimeFeedURI>GTFSRTVEHICLEPOSITIONS</gtfsRealtimeFeedURI>
+		<url>GTFSRTVEHICLEPOSITIONS</url>
+		<feedPollingRateSecs>10</feedPollingRateSecs>
+		<minLongitude>14.76</minLongitude>
+        <maxLongitude>24.50</maxLongitude>             
+        <minLatitude>48.40</minLatitude>
+        <maxLatitude>55.86</maxLatitude>
+	</avl>
+	<cache>
+		<daysPopulateHistoricalCache>0</daysPopulateHistoricalCache>
+	</cache>
 	<db>
 		<dbName>AGENCYNAME</dbName>
 		<dbHost>POSTGRES_PORT_5432_TCP_ADDR:POSTGRES_PORT_5432_TCP_PORT
@@ -69,5 +48,6 @@ quency based services. -->
 	</hibernate>
 	<web>
 		<mapTileUrl>http://tile.openstreetmap.org/{z}/{x}/{y}.png</mapTileUrl>
+		<mapTileCopyright>OpenStreetMap contributors</mapTileCopyright>
 	</web>
 </transitime>

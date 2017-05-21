@@ -34,7 +34,7 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys \
 	F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
 
 ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.0.43
+ENV TOMCAT_VERSION 8.0.44
 ENV TOMCAT_TGZ_URL https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 RUN set -x \
@@ -55,9 +55,10 @@ RUN chmod +x ./jq
 
 RUN cp jq /usr/bin/
 
-RUN git clone https://github.com/scrudden/core.git /transitime-core
+#RUN git clone https://github.com/scrudden/core.git /transitime-core
 
 #RUN git clone https://github.com/Transitime/core.git /transitime-core
+RUN git clone https://github.com/pacior/transitime2.git /transitime-core
 
 WORKDIR /transitime-core
 
@@ -65,7 +66,7 @@ WORKDIR /transitime-core
 #RUN git checkout historical_predictions
 #RUN git checkout frequency_based_services
 #RUN git checkout shade_build_upstream
-RUN git checkout VIA
+#RUN git checkout master
 RUN mvn install -DskipTests
 
 WORKDIR /
@@ -102,7 +103,7 @@ ADD bin/get_api_key.sh	get_api_key.sh
 
 # ADD GTFS file as not using URL.
 # ADD final_trial_2.zip final_trial_2.zip
-ADD google_transit_via_100_freq.zip final_trial_2.zip
+ADD SWARZEDZ.zip final_trial_2.zip
 
 # Handy utility to allow you connect directly to database
 ADD bin/connect_to_db.sh connect_to_db.sh
