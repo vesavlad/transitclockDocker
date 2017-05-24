@@ -58,7 +58,7 @@ RUN cp jq /usr/bin/
 #RUN git clone https://github.com/scrudden/core.git /transitime-core
 
 #RUN git clone https://github.com/Transitime/core.git /transitime-core
-RUN git clone https://github.com/pacior/transitime2.git /transitime-core
+RUN git clone https://github.com/pacior/core.git /transitime-core
 
 WORKDIR /transitime-core
 
@@ -67,6 +67,7 @@ WORKDIR /transitime-core
 #RUN git checkout frequency_based_services
 #RUN git checkout shade_build_upstream
 #RUN git checkout master
+RUN git checkout VIA
 RUN mvn install -DskipTests
 
 WORKDIR /

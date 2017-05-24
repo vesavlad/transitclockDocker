@@ -12,10 +12,10 @@
 	</autoBlockAssigner>
 
 	<core>
-		<predictionGeneratorClass>org.transitime.core.PredictionGeneratorDefaultImpl
-		</predictionGeneratorClass>
+		<predictionGeneratorClass>org.transitime.core.PredictionGeneratorDefaultImpl</predictionGeneratorClass>
 		<beforeStopDistance>100</beforeStopDistance>
 		<afterStopDistance>100</afterStopDistance>
+		<holdingTimeGeneratorClass></holdingTimeGeneratorClass>
 	</core>
 
 	<predAccuracy>
@@ -43,8 +43,7 @@
 	</db>
 	<hibernate>
 		<!-- <configFile>C:/cygwin64/home/SeanOg/workspace/transitime-historical/core/transitimeWebapp/src/main/resources/postgres_hibernate.cfg.xml</configFile> -->
-		<configFile>/usr/local/transitime/config/hibernate.cfg.xml
-		</configFile>
+		<configFile>/usr/local/transitime/config/hibernate.cfg.xml</configFile>
 	</hibernate>
 	<web>
 		<mapTileUrl>http://tile.openstreetmap.org/{z}/{x}/{y}.png</mapTileUrl>
