@@ -1,4 +1,4 @@
-# transitime-docker
+# transitimeDocker
 
 Things to make transitime go:
 
