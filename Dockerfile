@@ -63,7 +63,7 @@ RUN git clone https://github.com/scrudden/core.git /transitime-core
 WORKDIR /transitime-core
 
 #RUN git checkout kalman_predictions
-RUN git checkout historical_predictions
+RUN git checkout VIA
 
 #RUN git checkout shade_build_upstream
 
