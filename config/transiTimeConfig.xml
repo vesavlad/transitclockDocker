@@ -13,6 +13,7 @@
     <core>
     	<predictionGeneratorClass>org.transitime.core.PredictionGeneratorDefaultImpl</predictionGeneratorClass>
     	<maxDistanceFromSegment>30000</maxDistanceFromSegment>	
+	<holdingTimeGeneratorClass></holdingTimeGeneratorClass>	
     </core>	
     <avl>
         <!-- URL for GTFS realtime vechicle location stream. Changed name in versions do use both for the moment. -->
