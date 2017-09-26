@@ -56,7 +56,7 @@ RUN chmod +x ./jq
 
 RUN cp jq /usr/bin/
 
-RUN git clone https://github.com/scrudden/core.git /transitime-core
+RUN git clone https://github.com/TheTransitClock/transitime.git /transitime-core
 
 #RUN git clone https://github.com/Transitime/core.git /transitime-core
 

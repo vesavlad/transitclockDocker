@@ -4,11 +4,13 @@ export AGENCYID=1
 export GTFS_URL="http://gohart.org/google/google_transit.zip"
 export GTFSRTVEHICLEPOSITIONS="http://realtime.prod.obahart.org:8088/vehicle-positions"
 
-docker stop $(docker ps -a -q)
+docker stop transitime-server-instance
+docker stop transitime-db
 
-docker rm $(docker ps -a -q)
+docker rm transitime-server-instance
+docker rm transitime-db
 
-docker build -t transitime-server .
+docker build --no-cache -t transitime-server .
 
 docker run --name transitime-db -e POSTGRES_PASSWORD=$PGPASSWORD -d postgres
 
