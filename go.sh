@@ -12,7 +12,7 @@ docker rmi $(docker images -a -q)
 
 docker build  --no-cache -t transitime-server .
 
-docker run --name transitime-db -e POSTGRES_PASSWORD=$PGPASSWORD -p 5432:5432 -d postgres
+docker run --name transitime-db -e POSTGRES_PASSWORD=$PGPASSWORD -p 5432:5432 -d postgres:9.6.3
 
 docker run  --name transitime-server-instance --rm --link transitime-db:postgres -e AGENCYID=$AGENCYID -e PGPASSWORD=$PGPASSWORD -e AGENCYNAME=$AGENCYNAME transitime-server ./check_db_up.sh
 
