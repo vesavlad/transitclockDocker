@@ -22,6 +22,6 @@ To view api
 ```
 http://127.0.0.1:8080/api
 ```
-These work as the docker installer maps the container port 8080 to the same post on the host machine.
+These work as the docker installer maps the container port 8080 to the same port on the host machine.
 
 
