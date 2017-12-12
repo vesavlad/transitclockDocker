@@ -17,7 +17,7 @@
                  
 		<holdingTimeGeneratorClass></holdingTimeGeneratorClass>
         <maxDistanceFromSegment>100</maxDistanceFromSegment>
-        <storeTravelTimeStopPathPredictions>true</storeTravelTimeStopPathPredictions>
+        <storeTravelTimeStopPathPredictions>false</storeTravelTimeStopPathPredictions>
         <storeDwellTimeStopPathPredictions>false</storeDwellTimeStopPathPredictions>
         <!-- This setting allow more than one vehicle assigned to the same block. This should be set to true for scheduled services and false f
 or fre
