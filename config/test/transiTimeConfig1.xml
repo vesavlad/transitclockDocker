@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transitime>
     <modules>
-    	<optionalModulesList>org.transitime.avl.PlaybackModule;org.transitime.core.predAccuracy.PlaybackPredictionAccuracyModule</optionalModulesList>    	    	
+    	<optionalModulesList>org.transitime.avl.capmetro.BatchCsvAvlFeedModule;org.transitime.core.predAccuracy.PlaybackPredictionAccuracyModule</optionalModulesList>    	    	
     </modules>
     <gtfs>
-    	<routeIdFilterRegEx>2</routeIdFilterRegEx>
+    	<routeIdFilterRegEx>7</routeIdFilterRegEx>
     </gtfs>      
     <autoBlockAssigner>
                 <autoAssignerEnabled>true</autoAssignerEnabled>
@@ -13,11 +13,12 @@
                 <allowableLateSeconds>1200</allowableLateSeconds>
     </autoBlockAssigner>  
        <core>
-        <predictionGeneratorClass>org.transitime.core.PredictionGeneratorDefaultImpl</predictionGeneratorClass>             
+         <predictionGeneratorClass>org.transitime.core.PredictionGeneratorDefaultImpl</predictionGeneratorClass>
+                 
 		<holdingTimeGeneratorClass></holdingTimeGeneratorClass>
         <maxDistanceFromSegment>100</maxDistanceFromSegment>
         <storeTravelTimeStopPathPredictions>true</storeTravelTimeStopPathPredictions>
-        <storeDwellTimeStopPathPredictions>true</storeDwellTimeStopPathPredictions>
+        <storeDwellTimeStopPathPredictions>false</storeDwellTimeStopPathPredictions>
         <!-- This setting allow more than one vehicle assigned to the same block. This should be set to true for scheduled services and false f
 or fre
 quency based services. -->
@@ -42,16 +43,17 @@ quency based services. -->
     <predAccuracy><maxPredTimeMinutes>30</maxPredTimeMinutes></predAccuracy>
 
     <avl>
-        <gtfsRealtimeFeedURI>http://realtime.prod.obahart.org:8088/vehicle-positions</gtfsRealtimeFeedURI>
-        <url>http://realtime.prod.obahart.org:8088/vehicle-positions</url>
+    	<csvAvlFeedFileName>/tmp/data.csv</csvAvlFeedFileName>
+          <gtfsRealtimeFeedURI>GTFSRTVEHICLEPOSITIONS</gtfsRealtimeFeedURI> 		  
+		<url>GTFSRTVEHICLEPOSITIONS</url>
         <feedPollingRateSecs>10</feedPollingRateSecs>        
-        <playbackStartTime>07-10-2017 10:00:00</playbackStartTime>
-        <playbackEndTime>07-10-2017 14:00:00</playbackEndTime>
+         <playbackStartTime>07-13-2017 10:00:00</playbackStartTime>
+        <playbackEndTime>07-13-2017 14:00:00</playbackEndTime>
         <!-- <playbackVehicleId>1611</playbackVehicleId> -->
         <playbackRealtime>false</playbackRealtime>       
     </avl>
     <cache>
-        <daysPopulateHistoricalCache>0</daysPopulateHistoricalCache>
+        <daysPopulateHistoricalCache>120</daysPopulateHistoricalCache>
     </cache>
 	 <db>        
         <dbName>AGENCYNAME</dbName>
@@ -69,3 +71,4 @@ quency based services. -->
 		<mapTileUrl>http://tile.openstreetmap.org/{z}/{x}/{y}.png</mapTileUrl>
 	</web>
 </transitime>
+
