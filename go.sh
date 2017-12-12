@@ -15,7 +15,7 @@ docker build -t transitime-server \
 --build-arg GTFS_URL="https://data.texas.gov/download/r4v4-vz24/application%2Fzip" \
 --build-arg GTFSRTVEHICLEPOSITIONS="https://data.texas.gov/download/eiei-9rpf/application%2Foctet-stream" .
 
-docker run --name transitime-db -p 5432:5432 -e POSTGRES_PASSWORD=$PGPASSWORD -d postgres
+docker run --name transitime-db -p 5432:5432 -e POSTGRES_PASSWORD=$PGPASSWORD -d postgres:9.6.3
 
 docker run --name transitime-server-instance --rm --link transitime-db:postgres -e PGPASSWORD=$PGPASSWORD transitime-server ./check_db_up.sh
 
