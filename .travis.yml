@@ -6,7 +6,6 @@ services:
 branches:
   only:
     - master
-    - branch1
 
 install:
   - docker build -t thetransitclock .
