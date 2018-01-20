@@ -2,3 +2,11 @@ sudo: required
 
 services:
   - docker
+
+branches:
+  only:
+    - master
+    - branch1
+
+install:
+  - docker build -t thetransitclock .
