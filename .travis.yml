@@ -9,3 +9,6 @@ branches:
 
 install:
   - docker build -t thetransitclock .
+
+script:
+- bundle exec rake test  
