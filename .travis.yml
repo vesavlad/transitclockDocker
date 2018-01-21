@@ -6,9 +6,5 @@ services:
 branches:
   only:
     - master
-
-install:
-  - docker build -t thetransitclock .
-
 script:
-- bundle exec rake test  
+- docker build -t thetransitclock .
