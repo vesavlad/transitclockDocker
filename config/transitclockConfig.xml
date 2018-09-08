@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transitclock>
-    <modules>    
-        <optionalModulesList>org.transitclock.custom.mbta.HighFreqAvlModule;org.transitclock.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
+<modules>
+        <optionalModulesList>org.transitclock.custom.mbta.BusLocAvlModule;org.transitclock.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
     </modules>
     <autoBlockAssigner>
-		<autoAssignerEnabled>true</autoAssignerEnabled>
-		<ignoreAvlAssignments>false</ignoreAvlAssignments>
-		<allowableEarlySeconds>600</allowableEarlySeconds>
-		<allowableLateSeconds>600</allowableLateSeconds>
+                <autoAssignerEnabled>true</autoAssignerEnabled>
+                <ignoreAvlAssignments>false</ignoreAvlAssignments>
+                <allowableEarlySeconds>600</allowableEarlySeconds>
+                <allowableLateSeconds>600</allowableLateSeconds>
     </autoBlockAssigner>
     <core>
-    	<predictionGeneratorClass>org.transitclock.core.PredictionGeneratorDefaultImpl</predictionGeneratorClass>
-    	<holdingTimeGeneratorClass></holdingTimeGeneratorClass>
+        <predictionGeneratorClass>org.transitclock.core.predictiongenerator.rls.dwell.DwellTimePredictionGeneratorImpl</predictionGeneratorClass>
+        <holdingTimeGeneratorClass></holdingTimeGeneratorClass>
     </core>
     <avl>
         <!-- URL for GTFS realtime vechicle location stream. Changed name in versions do use both for the moment. -->
-        <gtfsRealtimeFeedURI>GTFSRTVEHICLEPOSITIONS</gtfsRealtimeFeedURI>
-	<url>GTFSRTVEHICLEPOSITIONS</url>
-        <feedPollingRateSecs>8</feedPollingRateSecs>
+        <gtfsRealtimeFeedURI>https://data.texas.gov/download/eiei-9rpf/application%2Foctet-stream</gtfsRealtimeFeedURI>
+        <url>https://data.texas.gov/download/eiei-9rpf/application%2Foctet-stream</url>
+        <feedPollingRateSecs>20</feedPollingRateSecs>
+        <testroute>66</testroute>
+        <feedPollingRateSecs>10</feedPollingRateSecs>
     </avl>
+        <cache>
+        <daysPopulateHistoricalCache>7</daysPopulateHistoricalCache>
+    </cache>
     <db>
         <dbName>AGENCYNAME</dbName>
         <dbHost>POSTGRES_PORT_5432_TCP_ADDR:POSTGRES_PORT_5432_TCP_PORT</dbHost>
