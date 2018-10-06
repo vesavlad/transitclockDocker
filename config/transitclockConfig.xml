@@ -1,29 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transitclock>
-<modules>
-        <optionalModulesList>org.transitclock.custom.mbta.BusLocAvlModule;org.transitclock.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
+    <modules>
+        <optionalModulesList>org.transitclock.avl.GtfsRealtimeModule;org.transitclock.core.predAccuracy.PredictionAccuracyModule</optionalModulesList>
     </modules>
+    <gtfs><routeIdFilterRegEx>C</routeIdFilterRegEx></gtfs>
     <autoBlockAssigner>
-                <autoAssignerEnabled>true</autoAssignerEnabled>
-                <ignoreAvlAssignments>false</ignoreAvlAssignments>
-                <allowableEarlySeconds>600</allowableEarlySeconds>
-                <allowableLateSeconds>600</allowableLateSeconds>
+		<autoAssignerEnabled>false</autoAssignerEnabled>
+		<ignoreAvlAssignments>false</ignoreAvlAssignments>
+		<allowableEarlySeconds>600</allowableEarlySeconds>
+		<allowableLateSeconds>600</allowableLateSeconds>
     </autoBlockAssigner>
-    <core>
-        <predictionGeneratorClass>org.transitclock.core.predictiongenerator.rls.dwell.DwellTimePredictionGeneratorImpl</predictionGeneratorClass>
+  <core>
+        <predictionGeneratorClass>org.transitclock.core.predictiongenerator.frequency.dwell.rls.DwellTimePredictionGeneratorImpl</predictionGeneratorClass>
         <holdingTimeGeneratorClass></holdingTimeGeneratorClass>
-    </core>
-    <avl>
-        <!-- URL for GTFS realtime vechicle location stream. Changed name in versions do use both for the moment. -->
-        <gtfsRealtimeFeedURI>https://data.texas.gov/download/eiei-9rpf/application%2Foctet-stream</gtfsRealtimeFeedURI>
-        <url>https://data.texas.gov/download/eiei-9rpf/application%2Foctet-stream</url>
-        <feedPollingRateSecs>20</feedPollingRateSecs>
-        <testroute>66</testroute>
-        <feedPollingRateSecs>10</feedPollingRateSecs>
-    </avl>
+        <exclusiveBlockAssignments>false</exclusiveBlockAssignments>
         <cache>
-        <daysPopulateHistoricalCache>7</daysPopulateHistoricalCache>
-    </cache>
+                <dwellTimeModelCache>org.transitclock.core.dataCache.jcs.frequency.DwellTimeModelCache</dwellTimeModelCache>
+                <tripDataHistoryCache>org.transitclock.core.dataCache.ehcache.frequency.TripDataHistoryCache</tripDataHistoryCache>
+        </cache>
+        <headwayGeneratorClass>org.transitclock.core.headwaygenerator.LastArrivalsHeadwayGenerator</headwayGeneratorClass>
+        <frequency>
+                <cacheIncrementsForFrequencyService>3600</cacheIncrementsForFrequencyService>
+        </frequency>
+        <dataCache>
+		<jcs>
+			<lambda>0.9</lambda>
+			<maxDwellTimeAllowedInModel>300000</maxDwellTimeAllowedInModel>
+		</jcs>
+	</dataCache>
+    </core>
+ <prediction>
+        <data>
+                <kalman>
+                        <mindays>4</mindays>
+                        <maxdays>5</maxdays>
+                        <maxdaystoseach>28</maxdaystoseach>
+                </kalman>
+        </data>
+        <rls>
+                <lambda>0.9</lambda>
+        </rls>
+        </prediction>
+
+    <predAccuracy><maxPredTimeMinutes>20</maxPredTimeMinutes></predAccuracy>
+
+    <avl>
+        <feedPollingRateSecs>10</feedPollingRateSecs>
+
+        <playbackStartTime>08-09-2018 06:00:00</playbackStartTime>
+         <playbackEndTime>08-09-2018 16:00:00</playbackEndTime>
+        <playbackRealtime>false</playbackRealtime>
+	<testroute>C</testroute>
+	<gtfsRealtimeFeedURI>http://mobullity.forest.usf.edu:8088/vehicle-positions</gtfsRealtimeFeedURI>
+    </avl>
+    <cache>
+        <daysPopulateHistoricalCache>20</daysPopulateHistoricalCache>
+    </cache>    
     <db>
         <dbName>AGENCYNAME</dbName>
         <dbHost>POSTGRES_PORT_5432_TCP_ADDR:POSTGRES_PORT_5432_TCP_PORT</dbHost>
