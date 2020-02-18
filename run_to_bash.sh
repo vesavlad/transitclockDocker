@@ -1,2 +1,2 @@
-docker run --rm -it --link transitime-db:postgres transitime-server /bin/bash
+docker run --rm -it --link transitclock-db:postgres transitclock-server-instance /bin/bash
 

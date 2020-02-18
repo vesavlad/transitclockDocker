@@ -1,11 +1,11 @@
-FROM maven:3.3-jdk-8
+FROM maven:3.6-jdk-8
 MAINTAINER Nathan Walker <nathan@rylath.net>, Sean Óg Crudden <og.crudden@gmail.com>
 
 ARG AGENCYID="1"
 ARG AGENCYNAME="GOHART"
 ARG GTFS_URL="http://gohart.org/google/google_transit.zip"
 ARG GTFSRTVEHICLEPOSITIONS="http://realtime.prod.obahart.org:8088/vehicle-positions"
-ARG TRANSITCLOCK_PROPERTIES="config/transitclockConfig.xml"
+ARG TRANSITCLOCK_PROPERTIES="config/transitclock.properties"
 
 ENV AGENCYID ${AGENCYID}
 ENV AGENCYNAME ${AGENCYNAME}
@@ -24,21 +24,6 @@ ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
-
-# see https://www.apache.org/dist/tomcat/tomcat-8/KEYS
-RUN gpg --keyserver pool.sks-keyservers.net --recv-keys \
-	05AB33110949707C93A279E3D3EFE6B686867BA6 \
-	07E48665A34DCAFAE522E5E6266191C37C037D42 \
-	47309207D818FFD8DCD3F83F1931D684307A10A5 \
-	541FBE7D8F78B25E055DDEE13C370389288584E7 \
-	61B832AC2F1C5A90F0F9B00A1C506407564C17A3 \
-	79F7026C690BAA50B92CD8B66A3AD3F4F22C4FED \
-	9BA44C2621385CB966EBA586F72C284D731FABEE \
-	A27677289986DB50844682F8ACB77FC2E86E29AC \
-	A9C5DF4D22E99998D9875A5110C01C5A2F6059E7 \
-	DCFD35E0BF8CA7344752DE8B6FB21E8933C60243 \
-	F3A04C595DB5B6A5F1ECA43E3B7BBB100D811BBE \
-	F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
 
 ENV TOMCAT_MAJOR 8
 ENV TOMCAT_VERSION 8.0.43
@@ -75,6 +60,10 @@ WORKDIR /usr/local/transitclock
 
 RUN  curl -s https://api.github.com/repos/TheTransitClock/transitime/releases/latest | jq -r ".assets[].browser_download_url" | grep 'Core.jar\|api.war\|web.war' | xargs -L1 wget
 
+#ADD transitime/transitclockWebapp/target/web.war /usr/local/transitclock/
+#ADD transitime/transitclockApi/target/api.war /usr/local/transitclock/
+#ADD transitime/transitclock/target/Core.jar /usr/local/transitclock/
+
 # Deploy API which talks to core using RMI calls.
 RUN mv api.war  /usr/local/tomcat/webapps
 
@@ -109,7 +98,7 @@ RUN \
  	chmod 777 /usr/local/transitclock/bin/*.sh
 
 ADD config/postgres_hibernate.cfg.xml /usr/local/transitclock/config/hibernate.cfg.xml
-ADD ${TRANSITCLOCK_PROPERTIES} /usr/local/transitclock/config/transitclockConfig.xml
+ADD ${TRANSITCLOCK_PROPERTIES} /usr/local/transitclock/config/transitclock.properties
 
 # This adds the transitime configs to test.
 ADD config/test/* /usr/local/transitclock/config/test/
