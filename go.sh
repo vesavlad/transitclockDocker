@@ -13,7 +13,7 @@ docker build --no-cache -t transitclock-server \
 --build-arg AGENCYID="1" \
 --build-arg AGENCYNAME="MPK" \
 --build-arg GTFS_URL="http://www.iplaner.pl/mpk.zip" \
---build-arg GTFSRTVEHICLEPOSITIONS="http://iplaner.pl:9699/onebusaway-api-webapp-ztm/api/gtfs_realtime/vehicle-positions-for-agency/2.pb?key=web" .
+--build-arg GTFSRTVEHICLEPOSITIONS='https://www.ztm.poznanepl/pl/dla-deweloperow/getGtfsRtFile/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0Mi56dG0ucG96bmFuLnBsIiwiY29kZSI6MSwibG9naW4iOiJtaFRvcm8iLCJ0aW1lc3RhbXAiOjE1MTM5NDQ4MTJ9.ND6_VN06FZxRfgVylJghAoKp4zZv6_yZVBu_1-yahlo&file=vehicle_positions.pb' .
 
 docker run --name transitclock-db -p 5432:5432 -e POSTGRES_PASSWORD=$PGPASSWORD -d postgres:9.6.3
 
