@@ -6,6 +6,7 @@ ARG AGENCYNAME="GOHART"
 ARG GTFS_URL="http://gohart.org/google/google_transit.zip"
 ARG GTFSRTVEHICLEPOSITIONS="http://realtime.prod.obahart.org:8088/vehicle-positions"
 ARG TRANSITCLOCK_PROPERTIES="config/transitclock.properties"
+ARG TRANSIT_CLOCK_VERSION=2.1.0
 
 ENV AGENCYID ${AGENCYID}
 ENV AGENCYNAME ${AGENCYNAME}
@@ -58,11 +59,11 @@ RUN mkdir /usr/local/transitclock/test/config
 
 WORKDIR /usr/local/transitclock
 
-RUN  curl -s https://api.github.com/repos/TheTransitClock/transitime/releases/latest | jq -r ".assets[].browser_download_url" | grep 'Core.jar\|api.war\|web.war' | xargs -L1 wget
+#RUN  curl -s https://api.github.com/repos/TheTransitClock/transitime/releases/latest | jq -r ".assets[].browser_download_url" | grep 'Core.jar\|api.war\|web.war' | xargs -L1 wget
 
-#ADD transitime/transitclockWebapp/target/web.war /usr/local/transitclock/
-#ADD transitime/transitclockApi/target/api.war /usr/local/transitclock/
-#ADD transitime/transitclock/target/Core.jar /usr/local/transitclock/
+ADD transitime/transitclockWebapp/target/web.war /usr/local/transitclock/
+ADD transitime/transitclockApi/target/api.war /usr/local/transitclock/
+ADD transitime/transitclock/target/transitclockCore-2.1.0-Core.jar /usr/local/transitclock/Core.jar
 
 # Deploy API which talks to core using RMI calls.
 RUN mv api.war  /usr/local/tomcat/webapps
@@ -98,6 +99,7 @@ RUN \
  	chmod 777 /usr/local/transitclock/bin/*.sh
 
 ADD config/postgres_hibernate.cfg.xml /usr/local/transitclock/config/hibernate.cfg.xml
+ADD config/ehcache.xml /usr/local/transitclock/config/ehcache.xml
 ADD ${TRANSITCLOCK_PROPERTIES} /usr/local/transitclock/config/transitclock.properties
 
 # This adds the transitime configs to test.
