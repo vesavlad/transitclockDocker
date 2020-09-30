@@ -100,6 +100,7 @@ RUN \
 
 ADD config/postgres_hibernate.cfg.xml /usr/local/transitclock/config/hibernate.cfg.xml
 ADD config/ehcache.xml /usr/local/transitclock/config/ehcache.xml
+ADD config/logback.xml /usr/local/transitclock/config/logback.xml
 ADD ${TRANSITCLOCK_PROPERTIES} /usr/local/transitclock/config/transitclock.properties
 
 # This adds the transitime configs to test.

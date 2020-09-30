@@ -13,6 +13,6 @@ java -Xmx4g -Dtransitclock.core.agencyId=$AGENCYID -Dtransitclock.configFiles=/u
 psql \
 	-h "$POSTGRES_PORT_5432_TCP_ADDR" \
 	-p "$POSTGRES_PORT_5432_TCP_PORT" \
-	-U postgres \
+	-U lametro \
 	-d $AGENCYNAME \
 	-c "update activerevisions set configrev=0 where configrev = -1; update activerevisions set traveltimesrev=0 where traveltimesrev = -1;"
