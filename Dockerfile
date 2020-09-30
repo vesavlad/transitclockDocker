@@ -107,4 +107,4 @@ ADD config/test/* /usr/local/transitclock/config/test/
 
 EXPOSE 8080
 
-CMD ["/start_transitclock.sh"]
+CMD ["tail -f /dev/null"]
