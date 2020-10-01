@@ -1,20 +1,9 @@
 FROM maven:3.6-jdk-8
 MAINTAINER Nathan Walker <nathan@rylath.net>, Sean Óg Crudden <og.crudden@gmail.com>
 
-ARG AGENCYID="1"
-ARG AGENCYNAME="GOHART"
-ARG GTFS_URL="http://gohart.org/google/google_transit.zip"
-ARG GTFSRTVEHICLEPOSITIONS="http://realtime.prod.obahart.org:8088/vehicle-positions"
 ARG TRANSITCLOCK_PROPERTIES="config/transitclock.properties"
-ARG TRANSIT_CLOCK_VERSION=2.1.0
 
-ENV AGENCYID ${AGENCYID}
-ENV AGENCYNAME ${AGENCYNAME}
-ENV GTFS_URL ${GTFS_URL}
-ENV GTFSRTVEHICLEPOSITIONS ${GTFSRTVEHICLEPOSITIONS}
 ENV TRANSITCLOCK_PROPERTIES ${TRANSITCLOCK_PROPERTIES}
-
-ENV TRANSITCLOCK_CORE /transitclock-core
 
 RUN apt-get update \
 	&& apt-get install -y postgresql-client \
@@ -80,10 +69,8 @@ ADD bin/create_webagency.sh /usr/local/transitclock/bin/create_webagency.sh
 ADD bin/import_gtfs.sh /usr/local/transitclock/bin/import_gtfs.sh
 ADD bin/start_transitclock.sh /usr/local/transitclock/bin/start_transitclock.sh
 ADD bin/get_api_key.sh /usr/local/transitclock/bin/get_api_key.sh
-ADD bin/import_avl.sh /usr/local/transitclock/bin/import_avl.sh
-ADD bin/process_avl.sh /usr/local/transitclock/bin/process_avl.sh
 ADD bin/update_traveltimes.sh /usr/local/transitclock/bin/update_traveltimes.sh
-ADD bin/set_config.sh /usr/local/transitclock/bin/set_config.sh
+
 
 # Handy utility to allow you connect directly to database
 ADD bin/connect_to_db.sh /usr/local/transitclock/bin/connect_to_db.sh
@@ -91,8 +78,6 @@ ADD bin/connect_to_db.sh /usr/local/transitclock/bin/connect_to_db.sh
 ENV PATH="/usr/local/transitclock/bin:${PATH}"
 
 # This is a way to copy in test data to run a regression test.
-ADD data/avl.csv /usr/local/transitclock/data/avl.csv
-ADD data/gtfs_hart_old.zip /usr/local/transitclock/data/gtfs_hart_old.zip
 
 RUN \
 	sed -i 's/\r//' /usr/local/transitclock/bin/*.sh &&\
@@ -100,10 +85,8 @@ RUN \
 
 ADD config/postgres_hibernate.cfg.xml /usr/local/transitclock/config/hibernate.cfg.xml
 ADD config/ehcache.xml /usr/local/transitclock/config/ehcache.xml
+ADD config/logback.xml /usr/local/transitclock/config/logback.xml
 ADD ${TRANSITCLOCK_PROPERTIES} /usr/local/transitclock/config/transitclock.properties
-
-# This adds the transitime configs to test.
-ADD config/test/* /usr/local/transitclock/config/test/
 
 EXPOSE 8080
 
