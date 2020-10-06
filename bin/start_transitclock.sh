@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 echo 'THETRANSITCLOCK DOCKER: Start TheTransitClock.'
-# This is to substitute into config file the env values
-find /usr/local/transitclock/config/ -type f -exec sed -i s#"POSTGRES_PORT_5432_TCP_ADDR"#"$POSTGRES_PORT_5432_TCP_ADDR"#g {} \;
-find /usr/local/transitclock/config/ -type f -exec sed -i s#"POSTGRES_PORT_5432_TCP_PORT"#"$POSTGRES_PORT_5432_TCP_PORT"#g {} \;
-find /usr/local/transitclock/config/ -type f -exec sed -i s#"PGPASSWORD"#"$PGPASSWORD"#g {} \;
-find /usr/local/transitclock/config/ -type f -exec sed -i s#"AGENCYNAME"#"$AGENCYNAME"#g {} \;
-find /usr/local/transitclock/config/ -type f -exec sed -i s#"GTFSRTVEHICLEPOSITIONS"#"$GTFSRTVEHICLEPOSITIONS"#g {} \;
 
 rmiregistry &
 
@@ -16,11 +10,26 @@ export APIKEY=$(get_api_key.sh)
 export JAVA_OPTS="$JAVA_OPTS -Dtransitclock.apikey=$(get_api_key.sh)"
 
 export JAVA_OPTS="$JAVA_OPTS -Dtransitclock.configFiles=/usr/local/transitclock/config/transitclock.properties"
+export JAVA_OPTS="$JAVA_OPTS -Dtransitclock.db.dbUserName=$DATABASE_USER"
+export JAVA_OPTS="$JAVA_OPTS -Dtransitclock.db.dbPassword=$PGPASSWORD"
+export JAVA_OPTS="$JAVA_OPTS -Dtransitclock.db.dbName=$AGENCYNAME"
+export JAVA_OPTS="$JAVA_OPTS -Dtransitclock.db.dbHost=$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT"
+export JAVA_OPTS="$JAVA_OPTS -Dtransitclock.core.agencyId=$AGENCYID"
 
 echo JAVA_OPTS $JAVA_OPTS
 
 /usr/local/tomcat/bin/startup.sh
 
-java -Xss12m -Xms3g -Xmx5g -XX:MaxDirectMemorySize=16G -Duser.timezone=PDT -Dtransitclock.configFiles=/usr/local/transitclock/config/transitclock.properties -Dtransitclock.core.agencyId=$AGENCYID -Dtransitclock.logging.dir=/usr/local/transitclock/logs/ -jar /usr/local/transitclock/Core.jar > /usr/local/transitclock/logs/output.txt &
+java -Xms4g -Xmx8g -XX:MaxDirectMemorySize=16G \
+  -Duser.timezone=PDT \
+  -Dtransitclock.db.dbUserName=$DATABASE_USER \
+  -Dtransitclock.db.dbPassword=$PGPASSWORD \
+  -Dtransitclock.db.dbName=$AGENCYNAME \
+  -Dtransitclock.db.dbHost=$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT\
+  -Dlogback.configurationFile=/usr/local/transitclock/config/logback.xml \
+  -Dtransitclock.configFiles=/usr/local/transitclock/config/transitclock.properties \
+  -Dtransitclock.core.agencyId=$AGENCYID \
+  -Dtransitclock.logging.dir=/usr/local/transitclock/logs/ \
+  -jar /usr/local/transitclock/Core.jar > /usr/local/transitclock/logs/output.txt &
 
 tail -f /dev/null

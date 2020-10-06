@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-export PGPASSWORD=transitclock
 
 echo 'THETRANSITCLOCK DOCKER: Check if database is runnng.'
 RET=1
 SUCCESS=0
 until [ "$RET" -eq "$SUCCESS" ]; do
 
-	psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres -c "SELECT EXTRACT(DAY FROM TIMESTAMP '2001-02-16 20:38:40');"
+	psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U $DATABASE_USER -c "SELECT EXTRACT(DAY FROM TIMESTAMP '2001-02-16 20:38:40');"
 	RET="$?"
 
 	if [ "$RET" -ne "$SUCCESS" ]

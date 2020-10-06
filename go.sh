@@ -1,39 +1,91 @@
-export PGPASSWORD=transitclock
-export SERVERNAME=transitclock-server-instance-test
-export DATABASENAME=transitclock-db-test
-export TRANSITCLOCK_PORT=8086
-export DATABASE_PORT=5436
-export QUEUENAME=transitclock-queue-test
 
-docker stop $DATABASENAME
-docker stop $SERVERNAME
-docker stop $QUEUENAME
+#export TRANSITCLOCK_PGPASSWORD=$TRANSITCLOCK_PGPASSWRD
+#export TRANSITCLOCK_DOCKER_INSTANCE_NAME=$TRANSITCLOCK_DOCKER_INSTANCE_NAME
+#export TRANSITCLOCK_DATABASE_NAME=$TRANSITCLOCK_DATABASE_NAME
+#export TRANSITCLOCK_DATABASE_USER=$TRANSITCLOCK_TRANSITCLOCK_DATABASE_USER
+#export TRANSITCLOCK_WEB_PORT=$TRANSITCLOCK_WEB_PORT
+#export TRANSITCLOCK_DATABASE_PORT=$TRANSITCLOCK_DATABASE_PORT
+#export TRANSITCLOCK_QUEUE_NAME=$TRANSITCLOCK_QUEUE_NAME
+#export TRANSITCLOCK_GTFS_URL=$TRANSITCLOCK_GTFS_URL
 
-docker rm $DATABASENAME
-docker rm $SERVERNAME
-docker rm $QUEUENAME
+export TRANSITCLOCK_PGPASSWORD=[SETPASSORD]
+export TRANSITCLOCK_DATABASE_USER=[SETUSERNAME]
+export TRANSITCLOCK_DOCKER_INSTANCE_NAME=transitclock-core-bus
+export TRANSITCLOCK_DATABASE_NAME=transitclock-database-bus
+export TRANSITCLOCK_WEB_PORT=8082
+export TRANSITCLOCK_DATABASE_PORT=5410
+export TRANSITCLOCK_QUEUE_NAME=transitclock-queue-bus
+export TRANSITCLOCK_GTFS_URL=https://transitfeeds.com/p/la-metro/184/latest/download
+export TRANSITCLOCK_ACENCY_NAME=LAMETROBUS
+export TRANSITCLOCK_ACENCYID=1
 
-docker rmi transitclock-server
+docker stop $TRANSITCLOCK_DOCKER_INSTANCE_NAME
+docker stop $TRANSITCLOCK_QUEUE_NAME
+docker stop $TRANSITCLOCK_DATABASE_NAME
 
-docker build --no-cache -t transitclock-server \
---build-arg TRANSITCLOCK_PROPERTIES="config/transitclock.properties" \
---build-arg AGENCYID="1" \
---build-arg AGENCYNAME="LAMETRO" \
---build-arg GTFS_URL="https://transitfeeds.com/p/la-metro/184/latest/download" \
---build-arg GTFSRTVEHICLEPOSITIONS='https://www.ztm.poznanepl/pl/dla-deweloperow/getGtfsRtFile/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0Mi56dG0ucG96bmFuLnBsIiwiY29kZSI6MSwibG9naW4iOiJtaFRvcm8iLCJ0aW1lc3RhbXAiOjE1MTM5NDQ4MTJ9.ND6_VN06FZxRfgVylJghAoKp4zZv6_yZVBu_1-yahlo&file=vehicle_positions.pb' .
+docker rm $TRANSITCLOCK_DOCKER_INSTANCE_NAME
+docker rm $TRANSITCLOCK_QUEUE_NAME
+docker rm $TRANSITCLOCK_DATABASE_NAME
 
-docker run --name $DATABASENAME -p $DATABASE_PORT:5432 -e POSTGRES_PASSWORD=$PGPASSWORD -d postgres:9.6.3
+#docker run --name $TRANSITCLOCK_DATABASE_NAME -p $TRANSITCLOCK_DATABASE_PORT:5432 -e POSTGRES_USER=$TRANSITCLOCK_DATABASE_USER -e POSTGRES_PASSWORD=$TRANSITCLOCK_PGPASSWORD -d postgres:9.6.3
 
-docker run --name $QUEUENAME -d hornetq-server
+docker run --name $TRANSITCLOCK_QUEUE_NAME -d hornetq-server
 
-docker run --name $SERVERNAME --rm --link $DATABASENAME:postgres --link $QUEUENAME:hornetq -e PGPASSWORD=$PGPASSWORD -v ~/logs:/usr/local/transitclock/logs/ transitclock-server check_db_up.sh
+docker run --rm  \
+  -e POSTGRES_PORT_5432_TCP_ADDR=lametro.c0rwr3p0myjd.us-west-1.rds.amazonaws.com \
+  -e POSTGRES_PORT_5432_TCP_PORT=5432 \
+  -e PGPASSWORD=$TRANSITCLOCK_PGPASSWORD \
+  -e DATABASE_USER=$TRANSITCLOCK_DATABASE_USER \
+  -e AGENCYNAME=$TRANSITCLOCK_ACENCY_NAME \
+  -e AGENCYID=$TRANSITCLOCK_ACENCYID \
+  -v ~/logs/$TRANSITCLOCK_DOCKER_INSTANCE_NAME/:/usr/local/transitclock/logs/ transitclock-server check_db_up.sh
 
-docker run --name $SERVERNAME --rm --link $DATABASENAME:postgres --link $QUEUENAME:hornetq -e PGPASSWORD=$PGPASSWORD -v ~/logs:/usr/local/transitclock/logs/ transitclock-server create_tables.sh
+docker run --rm \
+  -e POSTGRES_PORT_5432_TCP_ADDR=lametro.c0rwr3p0myjd.us-west-1.rds.amazonaws.com \
+  -e POSTGRES_PORT_5432_TCP_PORT=5432 \
+  -e PGPASSWORD=$TRANSITCLOCK_PGPASSWORD \
+  -e DATABASE_USER=$TRANSITCLOCK_DATABASE_USER \
+  -e AGENCYNAME=$TRANSITCLOCK_ACENCY_NAME \
+  -e AGENCYID=$TRANSITCLOCK_ACENCYID \
+  -v ~/logs/$TRANSITCLOCK_DOCKER_INSTANCE_NAME/:/usr/local/transitclock/logs/ transitclock-server create_tables.sh
 
-docker run --name $SERVERNAME --rm --link $DATABASENAME:postgres --link $QUEUENAME:hornetq -e PGPASSWORD=$PGPASSWORD -v ~/logs:/usr/local/transitclock/logs/ transitclock-server import_gtfs.sh
+docker run --rm \
+  -e PGPASSWORD=$TRANSITCLOCK_PGPASSWORD \
+  -e POSTGRES_PORT_5432_TCP_ADDR=lametro.c0rwr3p0myjd.us-west-1.rds.amazonaws.com \
+  -e POSTGRES_PORT_5432_TCP_PORT=5432 \
+  -e DATABASE_USER=$TRANSITCLOCK_DATABASE_USER \
+  -e AGENCYNAME=$TRANSITCLOCK_ACENCY_NAME \
+  -e AGENCYID=$TRANSITCLOCK_ACENCYID \
+  -e GTFS_URL=$TRANSITCLOCK_GTFS_URL \
+  -v ~/logs/$TRANSITCLOCK_DOCKER_INSTANCE_NAME/:/usr/local/transitclock/logs/ transitclock-server import_gtfs.sh
 
-docker run --name $SERVERNAME --rm --link $DATABASENAME:postgres --link $QUEUENAME:hornetq -e PGPASSWORD=$PGPASSWORD -v ~/logs:/usr/local/transitclock/logs/ transitclock-server create_api_key.sh
+docker run --rm  \
+  -e PGPASSWORD=$TRANSITCLOCK_PGPASSWORD \
+  -e POSTGRES_PORT_5432_TCP_ADDR=lametro.c0rwr3p0myjd.us-west-1.rds.amazonaws.com \
+  -e POSTGRES_PORT_5432_TCP_PORT=5432 \
+  -e DATABASE_USER=$TRANSITCLOCK_DATABASE_USER \
+  -e AGENCYNAME=$TRANSITCLOCK_ACENCY_NAME \
+  -e AGENCYID=$TRANSITCLOCK_ACENCYID \
+  -v ~/logs/$TRANSITCLOCK_DOCKER_INSTANCE_NAME/:/usr/local/transitclock/logs/ transitclock-server create_api_key.sh
 
-docker run --name $SERVERNAME --rm --link $DATABASENAME:postgres --link $QUEUENAME:hornetq -e PGPASSWORD=$PGPASSWORD -v ~/logs:/usr/local/transitclock/logs/ transitclock-server create_webagency.sh
+docker run --rm \
+  -e PGPASSWORD=$TRANSITCLOCK_PGPASSWORD \
+  -e DATABASE_USER=$TRANSITCLOCK_DATABASE_USER \
+  -e POSTGRES_PORT_5432_TCP_ADDR=lametro.c0rwr3p0myjd.us-west-1.rds.amazonaws.com \
+  -e POSTGRES_PORT_5432_TCP_PORT=5432 \
+  -e AGENCYNAME=$TRANSITCLOCK_ACENCY_NAME \
+  -e AGENCYID=$TRANSITCLOCK_ACENCYID \
+  -v ~/logs/$TRANSITCLOCK_DOCKER_INSTANCE_NAME/:/usr/local/transitclock/logs/ transitclock-server create_webagency.sh
 
-docker run --name $SERVERNAME --rm --link $DATABASENAME:postgres --link $QUEUENAME:hornetq -e PGPASSWORD=$PGPASSWORD  -v ~/logs:/usr/local/transitclock/logs/$SERVERNAME/ -v ~/ehcache:/usr/local/transitclock/cache/SERVERNAME/ -p $TRANSITCLOCK_PORT:8080 transitclock-server  start_transitclock.sh
+docker run --name $TRANSITCLOCK_DOCKER_INSTANCE_NAME --rm \
+  --link $TRANSITCLOCK_QUEUE_NAME:hornetq \
+  -e PGPASSWORD=$TRANSITCLOCK_PGPASSWORD \
+  -e POSTGRES_PORT_5432_TCP_ADDR=lametro.c0rwr3p0myjd.us-west-1.rds.amazonaws.com \
+  -e POSTGRES_PORT_5432_TCP_PORT=5432 \
+  -e DATABASE_USER=$TRANSITCLOCK_DATABASE_USER \
+  -e AGENCYNAME=$TRANSITCLOCK_ACENCY_NAME \
+  -e AGENCYID=$TRANSITCLOCK_ACENCYID \
+    -e GTFS_URL=$TRANSITCLOCK_GTFS_URL \
+  -v ~/logs/$TRANSITCLOCK_DOCKER_INSTANCE_NAME/:/usr/local/transitclock/logs/ \
+  -v ~/ehcache/$TRANSITCLOCK_DOCKER_INSTANCE_NAME/:/usr/local/transitclock/cache/ \
+  -p $TRANSITCLOCK_WEB_PORT:8080 transitclock-server  start_transitclock.sh
