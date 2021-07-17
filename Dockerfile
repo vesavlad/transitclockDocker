@@ -1,5 +1,4 @@
 FROM maven:3.6-jdk-8
-MAINTAINER Nathan Walker <nathan@rylath.net>, Sean Óg Crudden <og.crudden@gmail.com>
 
 ARG AGENCYID="1"
 ARG AGENCYNAME="GOHART"
