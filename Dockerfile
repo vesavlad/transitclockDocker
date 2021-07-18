@@ -1,10 +1,10 @@
 FROM maven:3.6-jdk-8
 
-ARG AGENCYID="1"
-ARG AGENCYNAME="GOHART"
-ARG GTFS_URL="http://gohart.org/google/google_transit.zip"
-ARG GTFSRTVEHICLEPOSITIONS="http://realtime.prod.obahart.org:8088/vehicle-positions"
-ARG TRANSITCLOCK_PROPERTIES="config/transitclock.properties"
+ARG AGENCYID="ro.stpt"
+ARG AGENCYNAME="STPT"
+ARG TRANSITCLOCK_PROPERTIES="config/transitclock.properties" 
+ARG GTFS_URL="https://data.opentransport.ro/routing/gtfs/gtfs-timisoara.zip"
+ARG GTFSRTVEHICLEPOSITIONS="https://api.opentransport.ro/realtime/vehicle-positions/tm"
 
 ENV AGENCYID ${AGENCYID}
 ENV AGENCYNAME ${AGENCYNAME}
@@ -14,46 +14,37 @@ ENV TRANSITCLOCK_PROPERTIES ${TRANSITCLOCK_PROPERTIES}
 
 ENV TRANSITCLOCK_CORE /transitclock-core
 
-RUN apt-get update \
-	&& apt-get install -y postgresql-client \
-	&& apt-get install -y git-core \
-	&& apt-get install -y vim
+RUN apt-get update && apt-get install -y postgresql-client git-core jq vim
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
-RUN mkdir -p "$CATALINA_HOME"
-WORKDIR $CATALINA_HOME
-
 ENV TOMCAT_MAJOR 8
 ENV TOMCAT_VERSION 8.0.43
 ENV TOMCAT_TGZ_URL https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
+RUN mkdir -p "$CATALINA_HOME" && cd $CATALINA_HOME
+WORKDIR $CATALINA_HOME
+
 RUN set -x \
-	&& curl -fSL "$TOMCAT_TGZ_URL" -o tomcat.tar.gz \
-	&& tar -xvf tomcat.tar.gz --strip-components=1 \
-	&& rm bin/*.bat \
-	&& rm tomcat.tar.gz*
+    && cd $CATALINA_HOME && curl -fSL "$TOMCAT_TGZ_URL" -o tomcat.tar.gz \
+    && tar -xvf tomcat.tar.gz --strip-components=1 \
+    && rm bin/*.bat \
+    && rm tomcat.tar.gz*
 
 EXPOSE 8080
 
 
 # Install json parser so we can read API key for CreateAPIKey output
+# RUN wget http://stedolan.github.io/jq/download/linux64/jq
+# RUN chmod +x jq
+# RUN mv jq /usr/bin/
 
-RUN wget http://stedolan.github.io/jq/download/linux64/jq
-
-RUN chmod +x ./jq
-
-RUN cp jq /usr/bin/
-
-WORKDIR /
-RUN mkdir /usr/local/transitclock
-RUN mkdir /usr/local/transitclock/db
-RUN mkdir /usr/local/transitclock/config
-RUN mkdir /usr/local/transitclock/logs
-RUN mkdir /usr/local/transitclock/cache
-RUN mkdir /usr/local/transitclock/data
-RUN mkdir /usr/local/transitclock/test
-RUN mkdir /usr/local/transitclock/test/config
+RUN mkdir -p /usr/local/transitclock/db && \
+    mkdir -p /usr/local/transitclock/config && \
+    mkdir -p /usr/local/transitclock/logs && \
+    mkdir -p /usr/local/transitclock/cache && \
+    mkdir -p /usr/local/transitclock/data && \
+    mkdir -p /usr/local/transitclock/test/config
 
 WORKDIR /usr/local/transitclock
 
@@ -88,13 +79,9 @@ ADD bin/connect_to_db.sh /usr/local/transitclock/bin/connect_to_db.sh
 
 ENV PATH="/usr/local/transitclock/bin:${PATH}"
 
-# This is a way to copy in test data to run a regression test.
-ADD data/avl.csv /usr/local/transitclock/data/avl.csv
-ADD data/gtfs_hart_old.zip /usr/local/transitclock/data/gtfs_hart_old.zip
-
 RUN \
-	sed -i 's/\r//' /usr/local/transitclock/bin/*.sh &&\
- 	chmod 777 /usr/local/transitclock/bin/*.sh
+    sed -i 's/\r//' /usr/local/transitclock/bin/*.sh && \
+    chmod 777 /usr/local/transitclock/bin/*.sh
 
 ADD config/postgres_hibernate.cfg.xml /usr/local/transitclock/config/hibernate.cfg.xml
 ADD ${TRANSITCLOCK_PROPERTIES} /usr/local/transitclock/config/transitclock.properties
@@ -104,4 +91,4 @@ ADD config/test/* /usr/local/transitclock/config/test/
 
 EXPOSE 8080
 
-CMD ["/start_transitclock.sh"]
+CMD ["start_transitclock.sh"]
