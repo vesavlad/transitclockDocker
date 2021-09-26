@@ -10,7 +10,7 @@ until [ "$RET" -eq "$SUCCESS" ]; do
 	if [ "$RET" -ne "$SUCCESS" ]
 		then
 			echo 'Database is not running.'
-			sleep 10
+			sleep 5
 	fi
 done
 echo 'THETRANSITCLOCK DOCKER: Database is now running.'

@@ -8,11 +8,16 @@ find /usr/local/transitclock/config/ -type f -exec sed -i s#"PGPASSWORD"#"$PGPAS
 find /usr/local/transitclock/config/ -type f -exec sed -i s#"AGENCYNAME"#"$AGENCYNAME"#g {} \;
 find /usr/local/transitclock/config/ -type f -exec sed -i s#"GTFSRTVEHICLEPOSITIONS"#"$GTFSRTVEHICLEPOSITIONS"#g {} \;
 
-check_db_up.sh
-create_tables.sh
-import_gtfs.sh
-create_api_key.sh
-create_webagency.sh
+echo '1. check db status'
+check_db_up.sh > /usr/local/transitclock/logs/check_db_up.log 2>&1
+echo '2. create tables'
+create_tables.sh > /usr/local/transitclock/logs/create_tables.log 2>&1
+echo '3. import gtfs'
+import_gtfs.sh > /usr/local/transitclock/logs/import_gtfs.log 2>&1
+echo '4. create api keys'
+create_api_key.sh > /usr/local/transitclock/logs/create_api_key.log 2>&1
+echo '5. create web agency'
+create_webagency.sh > /usr/local/transitclock/logs/create_webagency.log 2>&1
 
 rmiregistry &
 

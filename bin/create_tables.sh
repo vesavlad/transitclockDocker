@@ -6,14 +6,13 @@ java -cp /usr/local/transitclock/Core.jar org.transitclock.applications.SchemaGe
 
 createdb -h $POSTGRES_PORT_5432_TCP_ADDR -p $POSTGRES_PORT_5432_TCP_PORT -U postgres $AGENCYNAME
 
-sed 's/type varchar(2),/type varchar(5),/g' /usr/local/transitclock/db/ddl_postgres_org_transitclock_db_structs.sql > /usr/local/transitclock/db/ddl_postgres_org_transitclock_db_structs_fixed.sql
 
 psql \
 	-h $POSTGRES_PORT_5432_TCP_ADDR \
 	-p $POSTGRES_PORT_5432_TCP_PORT \
 	-U postgres \
 	-d $AGENCYNAME \
-	-f /usr/local/transitclock/db/ddl_postgres_org_transitclock_db_structs_fixed.sql
+	-f /usr/local/transitclock/db/ddl_postgres_org_transitclock_db_structs.sql
 psql \
 	-h $POSTGRES_PORT_5432_TCP_ADDR \
 	-p $POSTGRES_PORT_5432_TCP_PORT \

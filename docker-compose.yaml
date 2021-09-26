@@ -2,7 +2,6 @@ version: '3'
 services:
   web:
     build: .
-    restart: unless-stopped
     depends_on:
         - db
     ports:
@@ -20,8 +19,9 @@ services:
         - ./runtime/logs:/usr/local/transitclock/logs/ 
         - ./runtime/ehcache:/usr/local/transitclock/cache/
   db:
-    image: postgres:9.6.3
-    restart: unless-stopped
+    image: postgres:9-alpine
+    ports:
+        - "5432:5432"
     environment: 
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: transitclock
